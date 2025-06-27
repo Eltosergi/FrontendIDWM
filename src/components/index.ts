@@ -2,4 +2,8 @@ export * from './ui/button';
 export * from './ui/input';
 export * from './ui/label';
 export * from './ui/sonner';
+export * from './ui/form';
+export * from './ui/calendar';
+export * from './ui/popover';
 export * from './login/login-form';
+export * from './register/register-form';
