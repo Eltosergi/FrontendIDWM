@@ -1,7 +1,7 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { signIn, getSession } from 'next-auth/react';
+import { signIn, getSession, signOut } from 'next-auth/react';
 import { useMutation } from '@tanstack/react-query';
 import { toast } from 'sonner';
 
@@ -50,6 +50,30 @@ export const useLogin = () => {
 
     onError: (error: Error) => {
       toast.error('Error al iniciar sesión', {
+        description: error.message || 'Ocurrió un error inesperado',
+      });
+    },
+  });
+};
+
+export const useLogout = () => {
+  const router = useRouter();
+
+  return useMutation({
+    mutationFn: async () => {
+      await signOut({ redirect: false });
+    },
+
+    onSuccess: () => {
+      toast.success('¡Hasta luego!', {
+        description: 'Has cerrado sesión correctamente.',
+      });
+
+      router.push('/login');
+    },
+
+    onError: (error: Error) => {
+      toast.error('Error al cerrar sesión', {
         description: error.message || 'Ocurrió un error inesperado',
       });
     },

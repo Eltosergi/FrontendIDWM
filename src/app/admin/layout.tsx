@@ -4,6 +4,8 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 
+import { SidebarProvider, SidebarTrigger, AppSidebar } from "@/components";
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -17,5 +19,13 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   }, [searchParams, router]);
 
-  return <>{children}</>;
+  return(
+    <SidebarProvider>
+      <AppSidebar />
+      <main>
+        <SidebarTrigger />
+        {children}
+      </main>
+    </SidebarProvider>
+  );
 }
