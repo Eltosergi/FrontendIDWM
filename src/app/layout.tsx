@@ -31,8 +31,8 @@ export default function RootLayout({
     <html lang='es'>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <AppProviders>
-          <div className='flex flex-col min-h-screen'>
-            <main className='flex-1 py-10'>{children}</main>
+          <div>
+            <main>{children}</main>
           </div>
           <Toaster />
         </AppProviders>

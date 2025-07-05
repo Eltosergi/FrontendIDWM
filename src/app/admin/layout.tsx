@@ -4,7 +4,12 @@ import { useSearchParams, useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'sonner';
 
-import { SidebarProvider, SidebarTrigger, AppSidebar } from "@/components";
+import { AppSidebar } from "@/components/layout/dashboard/app-sidebar"
+import { SiteHeader } from "@/components/layout/dashboard/site-header"
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar"
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
@@ -19,13 +24,21 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     }
   }, [searchParams, router]);
 
-  return(
-    <SidebarProvider>
-      <AppSidebar />
-      <main>
-        <SidebarTrigger />
-        {children}
-      </main>
-    </SidebarProvider>
-  );
+  return (
+      <SidebarProvider
+        style={
+          {
+            "--sidebar-width": "calc(var(--spacing) * 72)",
+            "--header-height": "calc(var(--spacing) * 12)",
+          } as React.CSSProperties
+        }
+      >
+        <AppSidebar variant="inset" />
+        <SidebarInset>
+          <SiteHeader />
+          {children}
+          
+        </SidebarInset>
+      </SidebarProvider>
+      )
 }

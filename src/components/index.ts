@@ -14,4 +14,3 @@ export * from './ui/dropdown-menu';
 export * from './ui/avatar';
 export * from './login/login-form';
 export * from './register/register-form';
-export * from './layout/app-sidebar';
