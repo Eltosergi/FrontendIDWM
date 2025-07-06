@@ -10,3 +10,5 @@ export * from './responses/pagination-response';
 export * from './responses/product-response';
 export * from './responses/basket-response';
 export * from './responses/register-response';
+export * from './responses/order-response';
+export * from './responses/order-summary-response';

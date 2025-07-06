@@ -16,7 +16,7 @@ export const BasketView = () => {
   } = useBasket();
 
   if (isLoading) return <p className="text-muted-foreground">Cargando carrito...</p>;
-  if (isError) return <p className="text-destructive">Error: {error?.message}</p>;
+  if (isError) return <BasketEmpty />;
   if (!basket || basket.items.length === 0) return <BasketEmpty />;
 
   return (
