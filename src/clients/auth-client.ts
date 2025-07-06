@@ -1,5 +1,6 @@
 import { axiosClient } from '@/clients';
-import { ApiResponse, LoginRequest, LoginResponse } from '@/models';
+import { ApiResponse, LoginRequest, LoginResponse, RegisterRequest, RegisterResponse } from '@/models';
+
 
 export const authClient = {
   login: async (credentials: LoginRequest): Promise<ApiResponse<LoginResponse>> => {
@@ -7,4 +8,12 @@ export const authClient = {
 
     return response.data;
   },
+  register: async (userData: RegisterRequest): Promise<ApiResponse<RegisterResponse>> => {
+    
+    const response = await axiosClient.post<ApiResponse<RegisterResponse>>('/auth/register', userData);
+
+    return response.data;
+  }
+  
+  
 };
