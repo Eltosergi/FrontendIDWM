@@ -60,4 +60,10 @@ export const productClient = {
 
     return response.data;
   },
+
+  getProductById: async (id: string): Promise<ApiResponse<Product>> => {
+    const response = await axiosClient.get<ApiResponse<Product>>(`/product/${id}`);
+
+    return response.data;
+  },
 };

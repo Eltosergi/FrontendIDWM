@@ -2,6 +2,7 @@ import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 import { productClient } from '@/clients';
 import {
+  Product,
   ProductFiltersResponse,
   ProductParamsRequest,
   ProductsWithPaginationResponse,
@@ -38,5 +39,21 @@ export const useGetProductFilters = (): UseQueryResult<ProductFiltersResponse> =
       return response.data;
     },
     staleTime: 30 * 60 * 1000,
+  });
+};
+
+export const useGetProductById = (id: string): UseQueryResult<Product> => {
+  return useQuery({
+    queryKey: ['product', id],
+    queryFn: async (): Promise<Product> => {
+      const response = await productClient.getProductById(id);
+
+      if (!response.data) {
+        throw new Error('Error al obtener el producto');
+      }
+
+      return response.data;
+    },
+    staleTime: 5 * 60 * 1000,
   });
 };

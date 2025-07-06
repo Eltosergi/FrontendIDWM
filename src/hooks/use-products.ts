@@ -12,8 +12,8 @@ import {
   convertParamsToUrl,
 } from '@/lib';
 
-import { ProductFiltersForm, productFiltersSchema, ProductParamsRequest } from '@/models';
-import { useGetProductFilters, useGetProducts } from '@/services';
+import { ProductFiltersForm, productFiltersSchema, ProductParamsRequest, ProductIdRequest } from '@/models';
+import { useGetProductFilters, useGetProducts} from '@/services';
 import { useProductStore } from '@/stores';
 
 export const useProducts = () => {
@@ -37,6 +37,7 @@ export const useProducts = () => {
 
   const productsQuery = useGetProducts(filters);
   const productFiltersQuery = useGetProductFilters();
+
 
   const initialValues = convertParamsToForm(
     Object.keys(convertUrlToParams(searchParams)).length > 0
@@ -126,6 +127,8 @@ export const useProducts = () => {
   const isLoading = productsQuery.isLoading || productFiltersQuery.isLoading;
   const isError = productsQuery.isError || productFiltersQuery.isError;
   const error = productsQuery.error?.message || productFiltersQuery.error?.message || null;
+
+  
 
   return {
     products,
