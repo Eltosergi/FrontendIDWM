@@ -35,3 +35,8 @@ export * from './products/product-card-skeleton';
 export * from './products/product-filters';
 export * from './products/product-filters-skeleton';
 export * from './products/virtualized-list';
+
+export * from './basket/BasketEmpty';
+export * from './basket/BasketItemList';
+export * from './basket/BasketItemCard';
+export * from './basket/BasketSummary';

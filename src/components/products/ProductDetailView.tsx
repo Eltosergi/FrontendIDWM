@@ -4,12 +4,19 @@ import Image from 'next/image';
 import { Badge, Button } from '@/components';
 import { formatPrice } from '@/lib';
 import { Product, ProductCondition } from '@/models';
+import { useBasket } from '@/hooks';
 
 interface ProductDetailViewProps {
   product: Product;
 }
 
 export const ProductDetailView = ({ product }: ProductDetailViewProps) => {
+  const { addToBasket, isAdding } = useBasket();
+
+  const handleAddToCart = () => {
+    addToBasket({ productId: product.id, quantity: 1 });
+  };
+
   const getConditionLabel = (condition: ProductCondition) => {
     return condition === ProductCondition.NEW ? 'Nuevo' : 'Usado';
   };
@@ -33,12 +40,18 @@ export const ProductDetailView = ({ product }: ProductDetailViewProps) => {
             sizes="100vw"
           />
         </div>
-        {/* Miniaturas si hay más imágenes */}
+
+        {/* Miniaturas */}
         {product.urls && product.urls.length > 1 && (
           <div className="mt-4 flex gap-2 overflow-x-auto">
             {product.urls.map((url, index) => (
               <div key={index} className="w-20 h-20 relative rounded border">
-                <Image src={url} alt={`Imagen ${index + 1}`} fill className="object-cover rounded" />
+                <Image
+                  src={url}
+                  alt={`Imagen ${index + 1}`}
+                  fill
+                  className="object-cover rounded"
+                />
               </div>
             ))}
           </div>
@@ -48,7 +61,7 @@ export const ProductDetailView = ({ product }: ProductDetailViewProps) => {
       {/* Información del producto */}
       <div className="flex flex-col gap-4">
         <h1 className="text-3xl font-bold">{product.name}</h1>
-        
+
         <div className="flex items-center gap-3">
           <Badge variant="secondary" className={getConditionColor(product.condition)}>
             {getConditionLabel(product.condition)}
@@ -67,9 +80,14 @@ export const ProductDetailView = ({ product }: ProductDetailViewProps) => {
 
         <Button
           className="w-full mt-4"
-          disabled={product.stock === 0 || !product.isActive}
+          disabled={product.stock === 0 || !product.isActive || isAdding}
+          onClick={handleAddToCart}
         >
-          {product.stock === 0 ? 'Sin stock disponible' : 'Agregar al carrito'}
+          {product.stock === 0
+            ? 'Sin stock disponible'
+            : isAdding
+            ? 'Agregando...'
+            : 'Agregar al carrito'}
         </Button>
       </div>
     </div>

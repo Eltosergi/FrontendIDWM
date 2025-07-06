@@ -5,11 +5,21 @@ import { Badge, Button } from '@/components';
 import { formatPrice } from '@/lib';
 import { Product, ProductCondition } from '@/models';
 
+
+import { useBasket } from '@/hooks';
+
 interface ProductCardProps {
   product: Product;
 }
 
 export const ProductCard = ({ product }: ProductCardProps) => {
+  const {
+    isAdding,
+    addToBasket,
+  } = useBasket();
+
+  
+
   const getConditionLabel = (condition: ProductCondition) => {
     return condition === ProductCondition.NEW ? 'Nuevo' : 'Usado';
   };
@@ -59,12 +69,17 @@ export const ProductCard = ({ product }: ProductCardProps) => {
         className='w-full mt-4 cursor-pointer'
         onClick={(e) => {
           e.stopPropagation();
-          console.log('Agregar al carrito ',product.name);
+          addToBasket({ productId: product.id, quantity: 1 });
         }}
-        disabled={product.stock === 0 || !product.isActive}
+        disabled={product.stock === 0 || !product.isActive || isAdding}
       >
-        {product.stock === 0 ? 'Sin stock' : 'Agregar al carrito'}
+        {product.stock === 0
+          ? 'Sin stock'
+          : isAdding
+          ? 'Agregando...'
+          : 'Agregar al carrito'}
       </Button>
+
     </div>
   );
 };
