@@ -1,8 +1,13 @@
+import { ProductsSkeletonView, ProductsView } from "@/views";
+import { Suspense } from "react";
 
 export default function Page() {
   return (
-    <div className="flex h-full w-full items-center justify-center">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+    <div className="mt-4">
+      <Suspense fallback={<ProductsSkeletonView />}>
+      <ProductsView />
+      </Suspense>
+  
     </div>
-  )
+  )  
 }
