@@ -4,13 +4,16 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Eye, EyeOff, Loader2 } from 'lucide-react';
+import { ArrowLeft, Eye, EyeOff} from 'lucide-react';
 
-import { Button, Input, Label } from '@/components';
+import { Button, Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from '@/components';
 import { useLogin } from '@/hooks';
 import { LoginRequest, loginSchema } from '@/models';
+import { useRouter } from 'next/navigation';
 
 export const LoginForm = () => {
+  const router = useRouter();
+
   const [showPassword, setShowPassword] = useState(false);
   const loginMutation = useLogin();
 
@@ -27,64 +30,102 @@ export const LoginForm = () => {
   };
 
   return (
-    <div className='mx-auto w-md space-y-6'>
-      <h1 className='text-3xl font-bold text-center'>Iniciar Sesión</h1>
+    <div className="min-h-screen w-full flex items-center justify-center bg-white">
+      <div className="w-full max-w-md p-6 rounded-2xl shadow-lg bg-white border border-gray-200">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <section className="flex items-center gap-2 mb-4">
+              <Button
+                type="button"
+                onClick={() => router.back()}
+                variant="ghost"
+                size="icon"
+                className="hover:bg-gray-100 cursor-pointer"
+              >
+                <ArrowLeft size={24} className="pointer-events-none text-black" />
+              </Button>
+              <h1 className="text-2xl font-bold text-center w-full text-black">Iniciar Sesión</h1>
+            </section>
 
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-4'>
-        <div className='space-y-2'>
-          <Label htmlFor='email'>Email</Label>
-          <Input
-            id='email'
-            type='email'
-            placeholder='tu@email.com'
-            {...form.register('email')}
-            className={form.formState.errors.email ? 'border-red-500' : ''}
-            disabled={loginMutation.isPending}
-          />
-          {form.formState.errors.email && (
-            <p className='text-sm text-red-500'>{form.formState.errors.email.message}</p>
-          )}
-        </div>
-
-        <div className='space-y-2'>
-          <Label htmlFor='password'>Contraseña</Label>
-          <div className='relative'>
-            <Input
-              id='password'
-              type={showPassword ? 'text' : 'password'}
-              placeholder='••••••••'
-              {...form.register('password')}
-              className={form.formState.errors.password ? 'border-red-500 pr-10' : 'pr-10'}
-              disabled={loginMutation.isPending}
+            <FormField
+              control={form.control}
+              name="email"
+              rules={{
+                required: "El email es requerido",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Formato de email inválido",
+                },
+              }}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-black">Email</FormLabel>
+                  <FormControl>
+                    <input
+                      {...field}
+                      type="email"
+                      placeholder="example@gmail.com"
+                      className="w-full px-4 py-2 border border-gray-400 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-black bg-white text-black"
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
             />
+
+            <FormField
+              control={form.control}
+              name="password"
+              rules={{
+                required: "La contraseña es requerida",
+                minLength: {
+                  value: 6,
+                  message: "La contraseña debe tener al menos 6 caracteres",
+                },
+              }}
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel className="text-black">Contraseña</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <input
+                        {...field}
+                        type={showPassword ? "text" : "password"}
+                        placeholder="Contraseña"
+                        className="w-full px-4 py-2 border border-gray-400 rounded-xl shadow-sm focus:outline-none focus:ring-2 focus:ring-black pr-10 bg-white text-black"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                        className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+                        tabIndex={-1}
+                      >
+                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                      </button>
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <Button
-              type='button'
-              variant='ghost'
-              size='icon'
-              className='absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent cursor-pointer'
-              onClick={() => setShowPassword(!showPassword)}
-              disabled={loginMutation.isPending}
+              type="submit"
+              className="w-full text-white bg-black hover:bg-gray-800 transition-colors duration-300 cursor-pointer"
             >
-              {showPassword ? <EyeOff className='h-4 w-4' /> : <Eye className='h-4 w-4' />}
+              Iniciar sesión
             </Button>
-          </div>
-          {form.formState.errors.password && (
-            <p className='text-sm text-red-500'>{form.formState.errors.password.message}</p>
-          )}
-        </div>
 
-        <Button type='submit' className='w-full cursor-pointer' disabled={loginMutation.isPending}>
-          {loginMutation.isPending && <Loader2 className='mr-2 h-4 w-4 animate-spin' />}
-          {loginMutation.isPending ? 'Iniciando sesión...' : 'Iniciar Sesión'}
-        </Button>
-      </form>
-
-      <div className='text-center text-sm'>
-        ¿No tienes una cuenta?{' '}
-        <Link href='/register' className='underline'>
-          Regístrate
-        </Link>
+            <p className="text-sm text-gray-600 text-center">
+              ¿No tienes cuenta?{" "}
+              <Link href="/register" className="text-black underline hover:text-gray-800">
+                Regístrate
+              </Link>
+            </p>
+          </form>
+        </Form>
       </div>
     </div>
+
   );
 };

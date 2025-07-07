@@ -1,7 +1,13 @@
-export default function DashboardPage() {
+import { ProductsSkeletonView, ProductsView } from "@/views";
+import { Suspense } from "react";
+
+export default function Page() {
   return (
-    <div className="flex items-center justify-center h-screen">
-      <h1 className="text-2xl font-bold">Dashboard</h1>
+    <div className="mt-4">
+      <Suspense fallback={<ProductsSkeletonView />}>
+      <ProductsView />
+      </Suspense>
+  
     </div>
-  );
+  )  
 }
