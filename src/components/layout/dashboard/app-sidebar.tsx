@@ -121,7 +121,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a href="/historial-compra">
+                  <a href="/orders">
                     <IconHistory className="size-5" />
                     Ver Historial de Compra
                   </a>

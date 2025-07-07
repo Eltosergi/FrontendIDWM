@@ -1,20 +1,10 @@
 'use client'
-import { useGetOrders, useGetOrderById, useCreateOrder } from "@/services"
+import {useGetOrderById, useCreateOrder } from "@/services"
 import { useQueryClient } from "@tanstack/react-query"
-import { useRouter } from "next/navigation"
 import { toast } from "sonner"
 
 export const useOrder = (orderId?: number) => {
   const queryClient = useQueryClient()
-  const router = useRouter()
-
-  const {
-    data: orders,
-    isLoading: isLoadingOrders,
-    isError: isErrorOrders,
-    error: errorOrders,
-  } = useGetOrders()
-
   const {
     data: order,
     isLoading: isLoadingOrder,
@@ -48,13 +38,11 @@ export const useOrder = (orderId?: number) => {
   }
 
   return {
-    orders,
     order,
-    isLoadingOrders,
     isLoadingOrder,
     isCreatingOrder,
-    isError: isErrorOrders || isErrorOrder || !!errorCreateOrder,
-    error: errorOrders || errorOrder || errorCreateOrder,
+    isError: isErrorOrder || !!errorCreateOrder,
+    error: errorOrder || errorCreateOrder,
     createOrder,
   }
 }

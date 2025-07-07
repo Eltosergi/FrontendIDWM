@@ -1,14 +1,14 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
-import { formatPrice } from '@/lib'; // Asegúrate de que la ruta sea correcta
-import { OrderResponse } from '@/models'; // Importa tu tipo de orden
+import { formatPrice } from '@/lib'; 
+import { OrderResponse } from '@/models'; 
 
-// Define la interfaz para las props del componente
+
 interface InvoicePDFProps {
   order: OrderResponse;
 }
 
-// Estilos (sin cambios, son los mismos de antes)
+
 const styles = StyleSheet.create({
   page: { fontFamily: 'Helvetica', fontSize: 11, padding: 30, color: '#333' },
   header: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 30, borderBottomWidth: 2, borderBottomColor: '#28a745', paddingBottom: 10 },
@@ -43,7 +43,7 @@ export const InvoicePDF: React.FC<InvoicePDFProps> = ({ order }) => (
     <Page size="A4" style={styles.page}>
       {/* Header */}
       <View style={styles.header}>
-        <Text style={styles.companyName}>TuTienda.com</Text>
+        <Text style={styles.companyName}>BlackCat.com</Text>
         <View style={styles.invoiceInfo}>
           <Text style={styles.invoiceTitle}>Factura #{order.id}</Text>
           <Text style={styles.invoiceDate}>
