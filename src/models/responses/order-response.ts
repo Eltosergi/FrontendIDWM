@@ -4,7 +4,7 @@ import { ShippingAddress } from "../entities/shippingAddress";
 export interface OrderResponse {
     id: number;
     createdAt: string;
-    shippingAddress: ShippingAddress
+    address: ShippingAddress
     total: number;
     items: OrderItem[];
 }
