@@ -92,20 +92,13 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             <SidebarMenu title="Sección de Usuarios">
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <a href="/perfil">
+                  <a href="/profile">
                     <IconUserEdit className="size-5" />
-                    Modificar Perfil
+                    Ver Perfil
                   </a>
                 </SidebarMenuButton>
               </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <a href="/direccion-envio">
-                    <IconMapPin className="size-5" />
-                    Cambiar Dirección de Envío
-                  </a>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
+              
             </SidebarMenu>
 
             <div className="my-2 border-t border-gray-200 dark:border-gray-700" />
