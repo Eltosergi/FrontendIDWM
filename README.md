@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🚀 Frontend de la Aplicación – Next.js
 
-## Getting Started
+Este repositorio contiene el código del **frontend** de la aplicación, desarrollado con **Next.js**. A continuación, se detallan los pasos necesarios para levantar el entorno local de desarrollo.
 
-First, run the development server:
+---
+
+## 🧰 Requisitos Previos
+
+Antes de comenzar, asegúrate de tener lo siguiente instalado:
+
+* **Node.js**: Se recomienda la versión 18.x o superior.
+* **npm o yarn**: Un gestor de paquetes para JavaScript.
+* **Backend .NET**: La [aplicación backend](https://github.com/FernandoChav/AyudantiaWebMovil) debe estar en funcionamiento y accesible.
+
+---
+
+## 📦 Instalación y Puesta en Marcha
+
+Sigue estos pasos para que la aplicación funcione localmente:
+
+### 1️⃣ Clonar el Repositorio
+
+Abre tu terminal y ejecuta los siguientes comandos para clonar el proyecto y navegar a su directorio:
 
 ```bash
+git clone [https://github.com/Eltosergi/FrontendIDWM.git](https://github.com/Eltosergi/FrontendIDWM.git)
+cd FrontendIDWM
+git checkout features/admin_functions
+### 2️⃣ Instalar Dependencias
+
+Instala las dependencias necesarias del proyecto utilizando tu gestor de paquetes preferido:
+
+```bash
+# Con npm
+npm install
+
+# O con yarn
+yarn install
+
+
+### 3️⃣ Configurar Variables de Entorno
+
+Crea un nuevo archivo llamado `.env.local` en la raíz de tu proyecto. Copia y pega el siguiente contenido en este archivo:
+
+```env
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="90gea/J58LWah6QHx83mKS7thasughQaSw60KzLya5E="
+NEXT_PUBLIC_API_URL="http://localhost:5000/api"
+
+
+
+### 4️⃣ Verificar el Estado del Backend
+
+Esta aplicación frontend depende de una API de .NET. Asegúrate de que el backend esté ejecutándose y accesible en `http://localhost:5000`, como se especifica en la variable de entorno `NEXT_PUBLIC_API_URL`.
+
+* **Repositorio del Backend**: 👉 [AyudantiaWebMovil - Backend .NET](https://github.com/FernandoChav/AyudantiaWebMovil)
+
+5️⃣ Iniciar el Servidor de Desarrollo
+Una vez configurado todo, inicia el servidor de desarrollo:
+
+Bash
+
+# Con npm
 npm run dev
-# or
+
+# O con yarn
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+Después de que el servidor se inicie, abre tu navegador web y navega a:
+🔗 http://localhost:3000
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+¡La aplicación debería estar funcionando correctamente! 🎉
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🧑‍💻 Autor
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Desarrollado por [Sergio Parada](https://github.com/Eltosergi) para la asignatura de Desarrollo Web Móvil.

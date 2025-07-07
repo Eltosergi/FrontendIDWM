@@ -11,13 +11,13 @@ export async function middleware(req: NextRequest) {
   // 🚫 Si el admin intenta entrar a /dashboard → redirigir con toast
   if (pathname.startsWith('/dashboard') && role === 'Admin') {
     const redirectUrl = new URL('/admin', req.url);
-    redirectUrl.searchParams.set('denied', 'true'); // para mostrar toast en /admin
+    redirectUrl.searchParams.set('denied', 'true');
     return NextResponse.redirect(redirectUrl);
   }
 
   if (pathname.startsWith('/basket') && role === 'Admin') {
     const redirectUrl = new URL('/admin', req.url);
-    redirectUrl.searchParams.set('denied', 'true'); // para mostrar toast en /admin
+    redirectUrl.searchParams.set('denied', 'true');
     return NextResponse.redirect(redirectUrl);
   }
 
@@ -27,7 +27,7 @@ export async function middleware(req: NextRequest) {
   }
 
   // 🔐 Rutas protegidas
-  const protectedRoutes = ['/basket', '/admin'];
+  const protectedRoutes = ['/basket', '/admin', '/profile'];
   const isProtected = protectedRoutes.some((path) => pathname.startsWith(path));
 
   if (isProtected && !token) {
@@ -47,5 +47,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/dashboard/:path*', '/basket/:path*', '/admin/:path*'],
+  matcher: ['/dashboard/:path*', '/basket/:path*', '/admin/:path*', '/profile/:path*'],
 };

@@ -24,3 +24,8 @@ export const productFiltersSchema = baseProductFiltersSchema.extend({
 });
 
 export type ProductFiltersForm = z.infer<typeof productFiltersSchema>;
+
+export const productIdSchema = z.object({
+  productId: z.string().min(1), 
+});
+export type ProductIdRequest = z.infer<typeof productIdSchema>;
