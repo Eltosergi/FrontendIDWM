@@ -4,14 +4,13 @@ import {
   OrderResponse,
   OrderSummaryResponse,
 } from '@/models';
-import { create } from 'domain';
 
 export const orderBasket= {
     getOrders: async (): Promise<ApiResponse<OrderSummaryResponse[]>> => {
         const response = await axiosClient.get<ApiResponse<OrderSummaryResponse[]>>('/order');
     
         return {
-        data: response.data.data ?? [],
+        data: response.data.data ,
         success: response.data.success,
         message: response.data.message,
         errors: response.data.errors,
@@ -19,10 +18,10 @@ export const orderBasket= {
     },
     
     getOrderById: async (id: number): Promise<ApiResponse<OrderResponse>> => {
-        const response = await axiosClient.get<ApiResponse<OrderResponse>>(`/order/${id}`);
+        const response = await axiosClient.get<ApiResponse<OrderResponse>>(`/Order/${id}`);
     
         return {
-        data: response.data.data ?? undefined,
+        data: response.data.data,
         success: response.data.success,
         message: response.data.message,
         errors: response.data.errors,
@@ -33,7 +32,7 @@ export const orderBasket= {
         const response = await axiosClient.post<ApiResponse<OrderResponse>>('/order');
     
         return {
-        data: response.data.data ?? undefined,
+        data: response.data.data,
         success: response.data.success,
         message: response.data.message,
         errors: response.data.errors,
